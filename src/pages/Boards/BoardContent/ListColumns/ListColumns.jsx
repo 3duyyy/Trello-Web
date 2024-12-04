@@ -3,7 +3,7 @@ import { Box, Button } from '@mui/material'
 import Column from './Column/Column'
 import { Add } from '@mui/icons-material'
 
-const ListColumns = () => {
+const ListColumns = ({ columns }) => {
   return (
     <Box
       sx={{
@@ -16,9 +16,9 @@ const ListColumns = () => {
         '&::-webkit-scrollbar-track': { m: 2 }
       }}
     >
-      <Column />
-      <Column />
-      <Column />
+      {columns?.map((column) => (
+        <Column key={column._id} column={column} />
+      ))}
 
       {/* Add new Column CTA */}
       <Box

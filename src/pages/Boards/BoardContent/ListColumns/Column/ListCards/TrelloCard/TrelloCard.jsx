@@ -8,22 +8,12 @@ import {
   Typography
 } from '@mui/material'
 
-const TrelloCard = ({ temporaryHideMedia }) => {
-  // Test ẩn media (card trắng không dữ liệu)
-  if (temporaryHideMedia) {
+const TrelloCard = ({ card }) => {
+  const shouldShowCardAction = () => {
     return (
-      <Card
-        sx={{
-          cursor: 'pointer',
-          boxShadow: '0 1px 1px rgba(0, 0, 0, 0.2)',
-          overflow: 'unset'
-        }}
-      >
-        {/* Xử lý last-child đang bị padding-bottom */}
-        <CardContent sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>
-          <Typography>Card Test 01</Typography>
-        </CardContent>
-      </Card>
+      !!card?.memberIds?.length ||
+      !!card?.comments?.length ||
+      !!card?.attachments?.length
     )
   }
 
@@ -35,26 +25,24 @@ const TrelloCard = ({ temporaryHideMedia }) => {
         overflow: 'unset'
       }}
     >
-      <CardMedia
-        sx={{ height: 140 }}
-        image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBD_rOB19y9Uq-TdyNSfoZB8pTdFY5csJF5A&s"
-        title="green iguana"
-      />
+      {card?.cover && <CardMedia sx={{ height: 140 }} image={card?.cover} />}
       {/* Xử lý last-child đang bị padding-bottom */}
       <CardContent sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>
-        <Typography>3DuyDev</Typography>
+        <Typography>{card?.title}</Typography>
       </CardContent>
-      <CardActions sx={{ p: '0 4px 8px 4px' }}>
-        <Button size="small" startIcon={<Group />}>
-          20
-        </Button>
-        <Button size="small" startIcon={<Comment />}>
-          15
-        </Button>
-        <Button size="small" startIcon={<Attachment />}>
-          10
-        </Button>
-      </CardActions>
+      {shouldShowCardAction() && (
+        <CardActions sx={{ p: '0 4px 8px 4px' }}>
+          <Button size="small" startIcon={<Group />}>
+            {card?.memberIds?.length}
+          </Button>
+          <Button size="small" startIcon={<Comment />}>
+            {card?.comments?.length}
+          </Button>
+          <Button size="small" startIcon={<Attachment />}>
+            {card?.attachments?.length}
+          </Button>
+        </CardActions>
+      )}
     </Card>
   )
 }

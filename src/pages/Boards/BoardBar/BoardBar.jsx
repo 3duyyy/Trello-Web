@@ -7,6 +7,7 @@ import {
   PersonAdd,
   VpnLock
 } from '@mui/icons-material'
+import { capitalizeFirstLetter } from '~/utils/formatters'
 
 const MENU_STYLE = {
   color: 'white',
@@ -22,7 +23,7 @@ const MENU_STYLE = {
   }
 }
 
-const BoardBar = () => {
+const BoardBar = ({ board }) => {
   return (
     <Box
       sx={{
@@ -42,14 +43,14 @@ const BoardBar = () => {
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
         <Chip
           icon={<Dashboard />}
-          label="MERN Stack Board"
+          label={board?.title}
           variant="outlined"
           clickable
           sx={MENU_STYLE}
         />
         <Chip
           icon={<VpnLock />}
-          label="Public/Private Workspace"
+          label={capitalizeFirstLetter(board?.type)}
           variant="outlined"
           clickable
           sx={MENU_STYLE}

@@ -19,7 +19,7 @@ const theme = createTheme({
     columnHeaderHeight: COLUMN_HEADER_HEIGHT,
     columnFooterHeight: COLUMN_FOOTER_HEIGHT
   },
-  // Tùy biến component MUI
+  // ==========Tùy biến component MUI==========
   components: {
     MuiCssBaseline: {
       styleOverrides: {
@@ -74,20 +74,7 @@ const theme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          // color: theme.palette.primary.main,
           fontSize: '0.875rem',
-          // '.MuiOutlinedInput-notchedOutline': {
-          //   borderColor: theme.palette.primary.main
-          // },
-          // '.MuiSelect-iconOutlined': {
-          //   color: theme.palette.primary.main
-          // },
-          // '&:hover': {
-          //   '.MuiOutlinedInput-notchedOutline': {
-          //     borderColor: theme.palette.primary.main
-          //   }
-          // },
-
           // Tùy biến borderWidth của input
           '& fieldset': {
             borderWidth: '0.5px !important'

@@ -1,6 +1,6 @@
 // Board List
-function Board() {
+function Boards() {
   return <div>Board</div>
 }
 
-export default Board
+export default Boards

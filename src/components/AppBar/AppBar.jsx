@@ -112,7 +112,8 @@ const AppBar = () => {
                   fontSize="small"
                   sx={{
                     color: searchValues ? 'white' : 'transparent', // xử lý nếu có searchValues thì mới hiện dấu X để xóa
-                    cursor: searchValues ? 'pointer' : 'auto'
+                    cursor: searchValues ? 'pointer' : 'auto',
+                    ml: 0.6
                   }}
                   onClick={() => setSearchValues('')} // xử lý dấu X ở cuối để xóa phần search đi
                 />
