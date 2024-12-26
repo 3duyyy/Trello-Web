@@ -51,7 +51,7 @@ const theme = createTheme({
         }
       }
     },
-    // Tùy biến label
+    // Tùy biến label của input
     MuiInputLabel: {
       styleOverrides: {
         root: {

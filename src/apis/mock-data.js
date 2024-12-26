@@ -35,7 +35,13 @@ export const mockData = {
             description: 'Markdown Syntax (sẽ ở khóa nâng cao nhé)',
             cover:
               'https://trungquandev.com/wp-content/uploads/2022/07/fair-mern-stack-advanced-banner-trungquandev.jpg',
-            memberIds: ['test-user-id-01'],
+            memberIds: [
+              'test-user-id-01',
+              'test-user-id-02',
+              'test-user-id-03',
+              'test-user-id-04',
+              'test-user-id-05'
+            ],
             comments: ['test comment 01', 'test comment 02'],
             attachments: [
               'test attachment 01',
