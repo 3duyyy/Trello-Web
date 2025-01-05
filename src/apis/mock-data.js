@@ -10,7 +10,12 @@ export const mockData = {
     type: 'public', // 'private'
     ownerIds: [], // Những users là Admin của board
     memberIds: [], // Những users là member bình thường của board
-    columnOrderIds: ['column-id-01', 'column-id-02', 'column-id-03'], // Thứ tự sắp xếp / vị trí của các Columns trong 1 boards
+    columnOrderIds: [
+      'column-id-01',
+      'column-id-02',
+      'column-id-03',
+      'column-id-04'
+    ], // Thứ tự sắp xếp / vị trí của các Columns trong 1 boards
     columns: [
       // column 1
       {
@@ -198,6 +203,24 @@ export const mockData = {
             memberIds: [],
             comments: [],
             attachments: []
+          }
+        ]
+      },
+      // column 4
+      {
+        _id: 'column-id-04',
+        boardId: 'board-id-01',
+        title: 'Empty Column 04',
+        // Card đặc biệt để xử lý kéo thả khi column rỗng, nó chỉ nên có 3 trường id để nhận biết card của column và boardContent nào,
+        // id của nó nên để Unique (ColumnId-placeholder-card) và nó có 1 trường khác so với card còn lại để nhận biết đây là phần card
+        // của Frontend xử lý bug
+        cardOrderIds: ['column-id-04-placeholder-card'],
+        cards: [
+          {
+            _id: 'column-id-04-placeholder-card',
+            boardId: 'board-id-01',
+            columnId: 'column-id-04',
+            FE_PlaceholderCard: true
           }
         ]
       }

@@ -26,7 +26,7 @@ module.exports = {
 
     // Common
     'no-console': 1, //tránh console.log khi build sản phẩm
-    'no-lonely-if': 1, //phải dùng else if sau lệnh else thay vì dùng if để rõ ràng cú pháp
+    'no-lonely-if': 1, //phải dùng else if sau trong else thay vì dùng if để rõ ràng cú pháp
     'no-unused-vars': 1, // tránh tạo biến ko dùng
     'no-trailing-spaces': 1, //tránh thừa dấu cách khi code xong 1 dòng
     'no-multi-spaces': 1, //tránh dư thừa dấu cách khi code
@@ -42,6 +42,7 @@ module.exports = {
     'keyword-spacing': 1, //đảm bảo có space giữa các hàm hoặc if else
     'comma-dangle': 1, //tránh dư thừa dấu , ở cuối mỗi phần tử của object
     'comma-spacing': 1, //đảm bảo giữa các phần tử có dấu phẩy xong mới đến khoảng trống chứ ko phải khoảng trống trước dấu phẩy
-    'arrow-spacing': 1 //khoảng cách giữa function với arrow
+    'arrow-spacing': 1, //khoảng cách giữa function với arrow
+    'no-extra-boolean-cast': 0 // Xử lý ép kiểu boolean (default là error)
   }
 }
