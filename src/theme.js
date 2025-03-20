@@ -26,12 +26,12 @@ const theme = createTheme({
         // Tùy biến Scroll Bar
         body: {
           '*::-webkit-scrollbar': {
-            width: '8px',
-            height: '8px'
+            width: '6px',
+            height: '6px'
           },
           '*::-webkit-scrollbar-thumb': {
             backgroundColor: '#dcdde1',
-            borderRadius: '8px'
+            borderRadius: '6px'
           },
           '*::-webkit-scrollbar-thumb:hover': {
             backgroundColor: '#white'

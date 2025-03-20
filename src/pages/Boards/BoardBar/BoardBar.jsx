@@ -41,13 +41,15 @@ const BoardBar = ({ board }) => {
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-        <Chip
-          icon={<Dashboard />}
-          label={board?.title}
-          variant="outlined"
-          clickable
-          sx={MENU_STYLE}
-        />
+        <Tooltip title={board?.description}>
+          <Chip
+            icon={<Dashboard />}
+            label={board?.title}
+            variant="outlined"
+            clickable
+            sx={MENU_STYLE}
+          />
+        </Tooltip>
         <Chip
           icon={<VpnLock />}
           label={capitalizeFirstLetter(board?.type)}

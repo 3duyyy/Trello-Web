@@ -102,21 +102,24 @@ const AppBar = () => {
             input: {
               // thêm icon và đầu tiên bên trong input
               startAdornment: (
+                // Phải có InputAdornment để hợp lệ
                 <InputAdornment position="start">
                   <Search sx={{ color: 'white' }} fontSize="small" />
                 </InputAdornment>
               ),
               // thêm icon cuối bên trong input
               endAdornment: (
-                <Close
-                  fontSize="small"
-                  sx={{
-                    color: searchValues ? 'white' : 'transparent', // xử lý nếu có searchValues thì mới hiện dấu X để xóa
-                    cursor: searchValues ? 'pointer' : 'auto',
-                    ml: 0.6
-                  }}
-                  onClick={() => setSearchValues('')} // xử lý dấu X ở cuối để xóa phần search đi
-                />
+                <InputAdornment position="end">
+                  <Close
+                    fontSize="small"
+                    sx={{
+                      color: searchValues ? 'white' : 'transparent', // xử lý nếu có searchValues thì mới hiện dấu X để xóa
+                      cursor: searchValues ? 'pointer' : 'auto',
+                      ml: 0.6
+                    }}
+                    onClick={() => setSearchValues('')} // xử lý dấu X ở cuối để xóa phần search đi
+                  />
+                </InputAdornment>
               )
             }
           }}
