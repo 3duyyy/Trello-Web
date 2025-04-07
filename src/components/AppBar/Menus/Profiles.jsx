@@ -39,11 +39,7 @@ const Profiles = () => {
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
         >
-          <Avatar
-            sx={{ width: 34, height: 34 }}
-            alt="D"
-            src="https://scontent.fhan20-1.fna.fbcdn.net/v/t39.30808-6/465140251_1927415607778028_5850506606264726671_n.jpg?stp=cp6_dst-jpg&_nc_cat=102&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeEpiFwzON8wwf6P4d9XrIz7-WVDZhKzuJz5ZUNmErO4nMJC5-hCDveZjQY3gIq5SClEp13l-NLUCG2LQ18qRShM&_nc_ohc=aJhDV7NhHaoQ7kNvgGsM6YY&_nc_zt=23&_nc_ht=scontent.fhan20-1.fna&_nc_gid=AQuawGg3UEi2PHkvzSOgMAz&oh=00_AYBaWoIOxdJShJ4trx8pUXTU_ytriMPLrtu3WS4fJPnnLQ&oe=674F82EA"
-          />
+          <Avatar sx={{ width: 34, height: 34 }} alt="D" src="" />
         </IconButton>
       </Tooltip>
       <Menu

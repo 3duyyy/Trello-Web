@@ -1,6 +1,6 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from '~/App.jsx'
+// Cấu hình Theme MUI
 import CssBaseline from '@mui/material/CssBaseline'
 import theme from '~/theme.js'
 import { ThemeProvider } from '@mui/material/styles'
@@ -9,9 +9,11 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 // Cấu hình MUI Dialog
 import { ConfirmProvider } from 'material-ui-confirm'
+import { Provider } from 'react-redux'
+import { store } from './redux/store'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  <Provider store={store}>
     <ThemeProvider theme={theme}>
       <ConfirmProvider
         defaultOptions={{
@@ -33,5 +35,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         />
       </ConfirmProvider>
     </ThemeProvider>
-  </React.StrictMode>
+  </Provider>
 )

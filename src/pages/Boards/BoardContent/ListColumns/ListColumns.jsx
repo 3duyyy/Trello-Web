@@ -7,22 +7,25 @@ import {
 } from '@dnd-kit/sortable'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
+import { createNewColumnAPI } from '~/apis'
+import { generatePlaceholderCard } from '~/utils/formatters'
+import { cloneDeep } from 'lodash'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  selectCurrentActiveBoard,
+  updateCurrentActiveBoard
+} from '~/redux/activeBoard/activeBoardSlice'
 
-const ListColumns = ({
-  columns,
-  createNewColumn,
-  createNewCard,
-  deleteColumnDetails
-}) => {
+const ListColumns = ({ columns }) => {
+  const dispatch = useDispatch()
+  const board = useSelector(selectCurrentActiveBoard)
+
   const [openNewColumnForm, setOpenNewColumnForm] = useState(false)
+  const toggleOpenNewColumnForm = () => setOpenNewColumnForm(!openNewColumnForm)
   const [newColumnTitle, setNewColumnTitle] = useState('')
 
-  const toggleOpenNewColumnForm = () => {
-    setOpenNewColumnForm(!openNewColumnForm)
-  }
-
   // Xử lý tạo mới 1 Column
-  const addNewColumn = () => {
+  const addNewColumn = async () => {
     if (!newColumnTitle) {
       toast.error('Please Enter Column Title!')
       return
@@ -33,11 +36,35 @@ const ListColumns = ({
       title: newColumnTitle
     }
 
-    /**
-     * Chưa học Redux nên phải làm cách này, gọi lên props func createNewColumn ở component cha _id.jsx khi này sẽ
-    có thể Call luôn API thay vì phải gọi ngược lên các component cha ở bên trên (component con càng sâu càng khổ)
+    // Func có nhiệm vụ call API tạo mới Column và làm lại dữ liệu State board
+    const createdColumn = await createNewColumnAPI({
+      ...newColumnData,
+      boardId: board._id
+    })
+
+    // Xử lý thêm placeholder Card cho Column vừa tạo mới để xử lý kéo thả
+    createdColumn.cards = [generatePlaceholderCard(createdColumn)]
+    createdColumn.cardOrderIds = [generatePlaceholderCard(createdColumn)._id]
+
+    // Cập nhật lại State Board: ta set lại State để Component re-render thay vì call lại API fetchBoardDetailsAPI
+    /**Lưu ý: cách làm này tùy đặc thù dự án, có thể có dự án BE sẽ support trả về luôn toàn bộ Board đầy đủ dù có
+    là API tạo Column hay Card đi nữa. */
+    /** Fix bug:
+     * Đoạn này dính lỗi "Object is not extensible" bởi vì dù đã copy/clone ra giá trị newBoard nhưng bản chất của spread operator là Shallow Copy/Clone, nên dính phải rules Imutablelity trong Redux Toolkit không được dùng hàm PUSH (chỉnh sửa giá trị trực tiếp). Cách đơn giản nhất là Deep Copy/Clone
      */
-    createNewColumn(newColumnData)
+    const newBoard = cloneDeep(board)
+    newBoard.columns.push(createdColumn)
+    newBoard.columnOrderIds.push(createdColumn._id)
+
+    // Cách 2: Dùng Array.concat để merge mảng cần thêm vào mảng ban đầu
+    // const newBoard = { ...board }
+    // newBoard.columns = newBoard.columns.concat([createdColumn])
+    // newBoard.columnOrderIds = newBoard.columnOrderIds.concat([
+    //   createdColumn._id
+    // ])
+
+    // Cập nhật dữ liệu Board vào Redux Store
+    dispatch(updateCurrentActiveBoard(newBoard))
 
     // Đóng trạng thái add new column và clear input
     toggleOpenNewColumnForm()
@@ -61,12 +88,7 @@ const ListColumns = ({
         }}
       >
         {columns?.map((column) => (
-          <Column
-            key={column._id}
-            column={column}
-            createNewCard={createNewCard}
-            deleteColumnDetails={deleteColumnDetails}
-          />
+          <Column key={column._id} column={column} />
         ))}
 
         {/* Add new Column CTA  */}

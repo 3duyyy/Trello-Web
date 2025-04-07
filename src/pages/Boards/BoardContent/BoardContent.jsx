@@ -25,12 +25,9 @@ const ACTIVE_DRAG_ITEM_TYPE = {
 
 const BoardContent = ({
   board,
-  createNewColumn,
-  createNewCard,
   moveColumns,
   moveCardInTheSameColumn,
-  moveCardToDifferentColumn,
-  deleteColumnDetails
+  moveCardToDifferentColumn
 }) => {
   // =========dndkit sensors==========
   const mouseSensor = useSensor(MouseSensor, {
@@ -435,12 +432,7 @@ const BoardContent = ({
           p: '10px 0'
         }}
       >
-        <ListColumns
-          createNewColumn={createNewColumn}
-          createNewCard={createNewCard}
-          columns={orderedColumns}
-          deleteColumnDetails={deleteColumnDetails}
-        />
+        <ListColumns columns={orderedColumns} />
         <DragOverlay dropAnimation={customDropAnimation}>
           {!activeDragItemType && null}
           {activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.COLUMN && (

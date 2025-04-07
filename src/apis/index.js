@@ -8,13 +8,13 @@ catch lỗi tập trung rất Clean Code bởi 1 thằng cực kì mạnh mẽ �
  */
 
 // ======================Boards=====================
-// Get board details
-export const fetchBoardDetailsAPI = async (boardId) => {
-  const response = await axios.get(`${API_ROOT}/v1/boards/${boardId}`)
-  // Lưu ý: axios sẽ trả về kết quả qua property của nó là data
-  return response.data
-}
-// Update Board khi kéo thả
+// Get board details - Đã move to Redux
+// export const fetchBoardDetailsAPI = async (boardId) => {
+//   const response = await axios.get(`${API_ROOT}/v1/boards/${boardId}`)
+//   // Lưu ý: axios sẽ trả về kết quả qua property của nó là data
+//   return response.data
+// }
+// Update Board khi kéo thả Column
 export const updateBoardDetailsAPI = async (boardId, updataData) => {
   const response = await axios.put(
     `${API_ROOT}/v1/boards/${boardId}`,
@@ -39,7 +39,7 @@ export const createNewColumnAPI = async (newColumnData) => {
   const response = await axios.post(`${API_ROOT}/v1/columns`, newColumnData)
   return response.data
 }
-// Update Column khi kéo thả
+// Update Column khi kéo thả Card trong 1 Column
 export const updateColumnDetailsAPI = async (columnId, updataData) => {
   const response = await axios.put(
     `${API_ROOT}/v1/columns/${columnId}`,
