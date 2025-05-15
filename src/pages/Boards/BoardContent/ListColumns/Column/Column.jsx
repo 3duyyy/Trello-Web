@@ -72,7 +72,7 @@ const Column = ({ column }) => {
   // Cards lúc này ko cần sắp xếp theo cardOrderIds nữa vì đã sắp xếp ở component cha cao nhất lúc call API
   const orderedCards = column.cards
 
-  // ==========Xử lý Add new card================
+  // ==========Xử lý call API================
   const [openNewCardForm, setOpenNewCardForm] = useState(false)
   const toggleOpenNewCardForm = () => setOpenNewCardForm(!openNewCardForm)
   const [newCardTitle, setNewCardTitle] = useState('')
@@ -368,6 +368,7 @@ const Column = ({ column }) => {
                 }}
               >
                 <Button
+                  className="interceptor-loading"
                   variant="contained"
                   color="success"
                   size="small"

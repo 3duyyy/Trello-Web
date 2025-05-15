@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import axios from 'axios'
 import { isEmpty } from 'lodash'
 import { API_ROOT } from '~/utils/constant'
 import { generatePlaceholderCard } from '~/utils/formatters'
 import { mapOrder } from '~/utils/sorts'
+// Axios Interceptor thay cho Axios
+import authorizedAxiosInstance from '~/utils/authorizeAxios'
 
 // Khởi tạo giá trị State của 1 Slice trong Redux
 const initialState = {
@@ -14,7 +15,9 @@ const initialState = {
 export const fetchBoardDetailsAPI = createAsyncThunk(
   'activeBoard/fetchBoardDetailsAPI',
   async (boardId) => {
-    const response = await axios.get(`${API_ROOT}/v1/boards/${boardId}`)
+    const response = await authorizedAxiosInstance.get(
+      `${API_ROOT}/v1/boards/${boardId}`
+    )
     // Lưu ý: axios sẽ trả về kết quả qua property của nó là data
     return response.data
   }
@@ -53,7 +56,7 @@ export const activeBoardSlice = createSlice({
           column.cards = [generatePlaceholderCard(column)]
           column.cardOrderIds = [generatePlaceholderCard(column)._id]
         } else {
-          // Sắp xếp dữ liệu luôn ở đây trước khi đưa dữ liệu xuống component con
+          // Sắp xếp dữ liệu cards luôn ở đây trước khi đưa dữ liệu xuống component con
           column.cards = mapOrder(column.cards, column.cardOrderIds, '_id')
         }
       })
@@ -64,8 +67,8 @@ export const activeBoardSlice = createSlice({
   }
 })
 
-// Actions: là nơi dành cho các components bên dưới gọi bằng dispatch() tới nó để cập nhật lại dữ liệu thông qua reducer (chạy đồng bộ)
-// Để ý ở trên thì ko thấy properties actions đâu cả, bởi vì những cái actions này được redux tự động tạo theo tên của reducer
+// Actions: là nơi dành cho các components bên dưới gọi bằng dispatch() tới nó để cập nhật lại dữ liệu thông qua reducers (chạy đồng bộ)
+// Để ý ở trên thì ko thấy properties actions đâu cả, bởi vì những cái actions này được redux tự động tạo theo tên của reducers
 export const { updateCurrentActiveBoard } = activeBoardSlice.actions
 
 // Selectors: là nơi cho các components bên dưới gọi bằng hook useSelector() để lấy dữ liệu trong Redux store ra sử dụng
@@ -73,5 +76,5 @@ export const selectCurrentActiveBoard = (state) => {
   return state.activeBoard.currentActiveBoard
 }
 
-// Phải export ra là reducer bởi vì để store lấy ra reducer lưu trữ bên Redux store (ko có s ở cuối vì Slice đã tổng hợp các reducers thành 1 prop reducer rồi)
+// Phải export ra là reducer bởi vì để store lấy ra reducer lưu trữ bên Redux store (ko có s ở cuối vì Slice đã tổng hợp các reducers và extraReducers thành 1 prop reducer rồi)
 export const activeBoardReducer = activeBoardSlice.reducer

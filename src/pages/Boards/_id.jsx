@@ -1,42 +1,35 @@
-// Board Detail
 import { Box, CircularProgress, Container, Typography } from '@mui/material'
 import AppBar from '~/components/AppBar/AppBar'
 import BoardBar from './BoardBar/BoardBar'
 import BoardContent from './BoardContent/BoardContent'
 import { useEffect } from 'react'
 import {
-  createNewCardAPI,
-  createNewColumnAPI,
-  deleteColumnDetailsAPI,
   moveCardToDifferentColumnAPI,
   updateBoardDetailsAPI,
   updateColumnDetailsAPI
 } from '~/apis'
-import { generatePlaceholderCard } from '~/utils/formatters'
-import { toast } from 'react-toastify'
 import { cloneDeep } from 'lodash'
-// ===============Redux=================
+// Redux
 import { useDispatch, useSelector } from 'react-redux'
 import {
   fetchBoardDetailsAPI,
   selectCurrentActiveBoard,
   updateCurrentActiveBoard
 } from '~/redux/activeBoard/activeBoardSlice'
-
-// import { mockData } from '~/apis/mock-data'
+// React-router-dom
+import { useParams } from 'react-router-dom'
 
 const Board = () => {
   const dispatch = useDispatch()
-
   // Dùng State của Store thay vì dùng State của component
   const board = useSelector(selectCurrentActiveBoard)
 
+  const { boardId } = useParams()
+
   useEffect(() => {
-    // Tạm thời fix cứng (dùng react-router-dom nhưng sẽ học sau)
-    const boardId = '67b97c200139f4216924fe00'
     // Call API để lấy dữ liệu cho Board
     dispatch(fetchBoardDetailsAPI(boardId))
-  }, [dispatch])
+  }, [dispatch, boardId])
 
   // Func có nhiệm vụ call API và xử lý khi kéo thả Columns xong xuôi: call API cập nhật columnOrderIds của Board chứa nó
   const moveColumns = (dndOrderedColumns) => {
@@ -105,7 +98,7 @@ const Board = () => {
     let prevCardOrderIds = dndOrderedColumns.find(
       (c) => c._id === prevColumnId
     )?.cardOrderIds
-    // Xử lý chuẩn dữ liệu để gửi cho BE: khi kéo Card cuối cùng ra khỏi column thì column rỗng sẽ tự gen ra placeholder Card, sẽ bị lỗi format ObjectId
+    // Xử lý chuẩn dữ liệu để gửi cho BE: khi kéo Card cuối cùng ra khỏi column thì column rỗng sẽ tự gen ra placeholder Card, sẽ bị lỗi format ObjectId ở backend
     if (prevCardOrderIds[0].includes('placeholder-card')) prevCardOrderIds = []
 
     // Call API xử lý BE

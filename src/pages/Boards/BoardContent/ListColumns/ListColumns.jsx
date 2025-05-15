@@ -1,6 +1,6 @@
 import Column from './Column/Column'
-import { Box, Button, InputAdornment, TextField } from '@mui/material'
-import { Add, Close, Search } from '@mui/icons-material'
+import { Box, Button, TextField } from '@mui/material'
+import { Add, Close } from '@mui/icons-material'
 import {
   SortableContext,
   horizontalListSortingStrategy
@@ -163,6 +163,7 @@ const ListColumns = ({ columns }) => {
               }}
             >
               <Button
+                className="interceptor-loading"
                 variant="contained"
                 color="success"
                 size="small"
